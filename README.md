@@ -15,8 +15,8 @@ Replace the [Your Client ID] with your client ID. You can find it under your app
 6. Now you have invited the bot to your channel, you can play with it. Use _commands to see all commands.
 7. How can you edit the bot now?
 8. Clone this git. You will need:
-> Python 2.X
-> node.js
+-Python 2.X
+-node.js
 9. You see: 
 > directory: classes, node_modules
 > files: config.json, error-log.txt, log-file.txt, qkicream-bot.js
