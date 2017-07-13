@@ -1,0 +1,14 @@
+{
+  "name": "qkicream-bot",
+  "version": "1.0.0",
+  "description": "It's just a bot. The only bot you will ever need.",
+  "main": "qkicream-bot.js",
+  "scripts": {
+    "start":"node qkicream-bot.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.1.0"
+  }
+}
