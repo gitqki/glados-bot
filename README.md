@@ -28,4 +28,3 @@ Replace the [YourClientID] with your client ID. You can find it under your app-d
 13. Type: node qkicream-bot.js >log-file.txt 2>error-log.txt
 
 That's it. You are done.
-
