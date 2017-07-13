@@ -9,7 +9,7 @@ https://discord.js.org/#/
 2. Click "new App"
 3. Configure it (name, description...)
 4. Now you have the overview. Click "create a Bot User".
-* This grants you an unique token, which you have to insert into config.json (otherwise, the bot wont run)
+* This grants you an unique token, which you have to expose as an Environment Variable called BOT_TOKEN 
 5. Now, to invite the Bot to you channel, and test it, go here: 
 https://discordapp.com/oauth2/authorize?client_id=[YourClientID]&scope=bot&permissions=536063039
 Replace the [YourClientID] with your client ID. You can find it under your app-details page.
