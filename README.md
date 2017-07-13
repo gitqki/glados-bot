@@ -19,11 +19,12 @@ Replace the [YourClientID] with your client ID. You can find it under your app-d
 * Python 2.X
 * node.js
 9. You see: 
-* directory: classes, node_modules
+* directory: classes
 * files: config.json, error-log.txt, log-file.txt, qkicream-bot.js
 10. To edit just open qkicream-bot.js and/or classes, like helper.class.js or bootstrap.class.js
 11. To run it, open windows or linux console in qkicream-bot folder
-12. Type: node qkicream-bot.js >log-file.txt 2>error-log.txt
+12. npm install --save discord.js (This will create a node_folder in your libary)
+13. Type: node qkicream-bot.js >log-file.txt 2>error-log.txt
 
 That's it. You are done.
 
