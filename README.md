@@ -21,7 +21,7 @@ Replace the [Your Client ID] with your client ID. You can find it under your app
 * directory: classes, node_modules
 * files: config.json, error-log.txt, log-file.txt, qkicream-bot.js
 10. To edit just open qkicream-bot.js and/or classes, like helper.class.js or bootstrap.class.js
-11. To run it, open command in qkicream-bot folder
+11. To run it, open windows or linux console in qkicream-bot folder
 12. Type: node qkicream-bot.js >log-file.txt 2>error-log.txt
 
 That's it. You are done.
