@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "/var/www/gladosBot",
+    "allowJs": true,
+    "charset": "utf-8",
+    "target": "es2017"
+  },
+  "compileOnSave": true,
+  "include": [],
+  "exclude": [],
+  "files": []
+}
