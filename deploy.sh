@@ -5,4 +5,5 @@ wget https://github.com/gitqki/glados-bot/master/Dockerfile
 # Image bauen
 docker build --no-cache -t glados-bot:latest .
 # Run teh shit
+docker run rm -f discord_bot
 docker run -e BOT_TOKEN --name "discord_bot" -d glados-bot
