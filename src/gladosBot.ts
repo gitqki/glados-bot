@@ -42,4 +42,4 @@ client.on('message', msg => {
 });
 
 // insert or remove bot token
-client.login("MzM1MTU3MjA2MTEyNzk2Njc0.DEmYQA.utUcnIwkk7a2qiaSPbekO02aqc8");
+client.login(process.env.BOT_TOKEN);
