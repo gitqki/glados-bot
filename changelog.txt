@@ -1,0 +1,21 @@
+Changelog Version 0.2
+---------------------
+
+fixes:
+- fixed an issue when config.json wasnt loaded correctly (import * as CONFIG from "src")
+- fixed and issue when classes weren't loaded correctly (removed .ts)
+
+changes:
+- config.json is now at "root/src/config"
+
+
+new:
+- Outsourced all neccessary stuff for better structure
+- gladosBot.ts just act like a handler, who calls all the features
+- created some classes for different stuff like no prefix commands, with prefix commands and stuff.
+- bot can't call own commands anymore
+
+still in development:
+- implemented a feature, which allows to post play comments (everything after .play ?play..) in other channels, to implement songname lists
+we need a filter, which search for existing songnames in the channel. (channel atm: test)
+

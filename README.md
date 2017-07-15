@@ -1,7 +1,7 @@
 # glados-bot
 It's just a bot.  The only bot you will ever need.
 
-# Documentation of the Framework
+# Framework Documentation
 https://discord.js.org/#/
 
 # How to start
