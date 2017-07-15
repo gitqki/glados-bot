@@ -1,7 +1,8 @@
 export class Helper {
-	constructor(){}
+	constructor(){
+	}
 
-	static gct = function getCurrentTimestamp(){
+	public gct() {
 		const DATE = new Date().toString();
 		return DATE;
 	}
