@@ -2,7 +2,7 @@ export class HimeBot{
     constructor() {
 
     }
-    public deleteHime(msg, CONFIG, helper){
+    public delete(msg, CONFIG, helper){
         if (msg.content.startsWith(CONFIG.hime)){
             const con = msg.content;
             const comment = con.substr(con.indexOf(".") + 1);

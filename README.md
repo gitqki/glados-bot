@@ -32,6 +32,16 @@ Replace the [YourClientID] with your client ID. You can find it under your app-d
 10. npm install typescript --save discord.js (This will create a node_folder in your libary)
 11. Type: npm run start
 
+# installation for music bot
+12. npm install windows-build-tools (in src dir)
+13. npm install discord.js node-opus (in src dir)
+14. download https://ffmpeg.org/download.html
+15. You need to download/extract FFMPEG and make it as your PATH/System variable[environment variable]
+16. [https://i.stack.imgur.com/hAVzo.png] (for windows)
+17. npm install discord.js ytdl-core (in src dir), npm install discord.js youtube-search
+18. Restart system
+19. Now it should work.
+
 Now you have started the bot. Changes can be made in the glados-bot/src/ folder.
 Just redeploy the bot if changes are made. To redeploy just run the deploy.sh script 
 or type npm run with the terminal in the root path of the project.

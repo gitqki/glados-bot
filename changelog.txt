@@ -1,3 +1,24 @@
+Changelog Version 0.3
+---------------------
+fixes:
+- fixed an issue, when bot was leaving the channel, before playing a song
+
+changes:
+- many minor changes
+- created many subfolders for better structure
+- wrote installation guide for the music-bot
+
+new:
+- added music bot, now you can play youtube songs, just by enter the url (read _commands)
+- added soundboard, now, when special sentences are spoken to someone, the bot plays different sounds
+- added some helpers like "youtube-searc, ytdl-core"
+# deeper view for this:
+- added search.class
+- added play.class
+- added doing.class
+- added soundboard.class
+
+
 Changelog Version 0.2
 ---------------------
 

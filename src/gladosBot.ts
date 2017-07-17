@@ -9,18 +9,27 @@
 import * as fs from "fs";
 import * as CONFIG from './config/config.json';
 import * as Discord from "discord.js";
-import {noPrefixCommands} from "./classes/noPrefixCommands.class";
-import {prefixCommands} from "./classes/prefixCommands.class";
-import {HimeBot} from "./classes/deleteHimeBotCommands.class";
-import {Helper} from "./classes/helper.class";
-import {} from "./classes/bootstrap.class";
+import {Sentences} from "./classes/commands/fun/sentences.class";
+import {Commands} from "./classes/commands/util/prefixCommands.class";
+import {HimeBot} from "./classes/commands/delete/himeBot.class";
+import {Soundboard} from "./classes/commands/music/soundboard.class";
+import {Play} from "./classes/commands/music/play.class";
+import {YoutubeSearch} from "./classes/commands/music/search.class";
+import {Doing} from "./classes/commands/info/doing.class";
+import {Helper} from "./classes/helper/helper.class";
+import {} from "./classes/handler/bootstrap.class";
+import ytdl = require('ytdl-core');
+import search = require('youtube-search');
 
-const wPrefix = new prefixCommands();
+const wPrefix = new Commands();
 const helper = new Helper();
-const noPrefix = new noPrefixCommands();
+const infoDoStuff = new Doing();
+const sentences = new Sentences();
 const himeBot = new HimeBot();
+const play = new Play();
+const newSoundboard = new Soundboard();
+const yt_search = new YoutubeSearch();
 const client = new Discord.Client();
-
 
 // Create ready event listener
 client.on('ready', () => {
@@ -35,9 +44,12 @@ client.on('message', msg => {
     if (msg.author.bot && msg.content.startsWith(CONFIG.prefix)) return;
 
     // Call classes here
-    noPrefix.getCommands(msg, helper);
+    sentences.getCommands(msg, helper, client, ytdl, CONFIG);
     wPrefix.getCommands(msg, CONFIG, helper, fs);
-    himeBot.deleteHime(msg, CONFIG, helper);
+    himeBot.delete(msg, CONFIG, helper);
+    infoDoStuff.getCommands(msg, CONFIG, helper);
+    play.play(msg, client, ytdl, CONFIG);
+    newSoundboard.getCommands(msg, CONFIG, ytdl);
 
 });
 
