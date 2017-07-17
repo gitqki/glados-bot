@@ -1,9 +1,9 @@
 /**
 @Author: Stefan Behnert, Thien-An Nguyen
-@Version: 0.2
-@date: 15.07.2017
+@Version: 0.3
+@date: 17.07.2017
 @email:
-@run: node super-clean-bot.js
+@run: node gladosBot.js
 **/
 
 import * as fs from "fs";
