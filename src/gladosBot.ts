@@ -14,6 +14,7 @@ import {Commands} from "./classes/commands/util/prefixCommands.class";
 import {HimeBot} from "./classes/commands/delete/himeBot.class";
 import {Soundboard} from "./classes/commands/music/soundboard.class";
 import {Play} from "./classes/commands/music/play.class";
+import {Stop} from "./classes/commands/music/stop.class";
 import {YoutubeSearch} from "./classes/commands/music/search.class";
 import {Doing} from "./classes/commands/info/doing.class";
 import {Helper} from "./classes/helper/helper.class";
@@ -27,6 +28,7 @@ const infoDoStuff = new Doing();
 const sentences = new Sentences();
 const himeBot = new HimeBot();
 const play = new Play();
+const stop = new Stop();
 const newSoundboard = new Soundboard();
 const yt_search = new YoutubeSearch();
 const client = new Discord.Client();
@@ -49,6 +51,7 @@ client.on('message', msg => {
     himeBot.delete(msg, CONFIG, helper);
     infoDoStuff.getCommands(msg, CONFIG, helper);
     play.play(msg, client, ytdl, CONFIG);
+    stop.stop(msg, CONFIG);
     newSoundboard.getCommands(msg, CONFIG, ytdl);
 
 });
