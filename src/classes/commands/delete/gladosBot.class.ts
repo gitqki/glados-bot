@@ -5,7 +5,7 @@ export class GladosBot{
     public delete(msg, CONFIG, helper){
         if (msg.content.startsWith(CONFIG.prefix)){
             const con = msg.content;
-            const comment = con.substr(con.indexOf(".") + 1);
+            const comment = con.substr(con.indexOf(CONFIG.prefix) + 1);
 
             if (comment.startsWith('play') ||
                 comment.startsWith('add') ||
