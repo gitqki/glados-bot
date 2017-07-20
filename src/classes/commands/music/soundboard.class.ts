@@ -133,13 +133,14 @@ export class Soundboard {
             const streamOptions = {seek: 0, volume: 1};
             if (song.startsWith("http://voice.share.laur.me:8888/")){
                 console.log(song);
-                dispatcher = client.voiceConnections.first().playStream(song,{seek: 0, volume: 1.5});
+                let dispatcher = client.voiceConnections.first().playStream(song);
                 dispatcher.on('end', () => {
                     PlayNextStreamInQueue(msg, ytAudioQueue);
                 });
                 dispatcher.on('error', (err) => {
                     console.log(err);
                 });
+
             }
             else {
                 if (song) {
@@ -150,14 +151,13 @@ export class Soundboard {
                         //console.log(voiceConnection);
 
                         if (voiceConnection) {
-
-                            let dispatcher = client.voiceConnection.playStream(stream, streamOptions);
-                            dispatcher.on('end', () => {
-                                PlayNextStreamInQueue(msg, ytAudioQueue);
-                            });
-                            dispatcher.on('error', (err) => {
-                                console.log(err);
-                            });
+                                let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+                                dispatcher.on('end', () => {
+                                    PlayNextStreamInQueue(msg, ytAudioQueue);
+                                });
+                                dispatcher.on('error', (err) => {
+                                    console.log(err);
+                                });
                         }
                     }
                     else {
