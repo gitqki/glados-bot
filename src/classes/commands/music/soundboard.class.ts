@@ -1,8 +1,10 @@
+import {Play} from "./play.class";
+const playSong = new Play();
 export class Soundboard {
     constructor() {
 
     }
-    getCommands(msg, CONFIG, ytdl) {
+    getCommands(msg, CONFIG, ytdl, ytAudioQueue, client, dispatcher, userRole, ytSongQueue) {
         const voiceChannel = msg.member.voiceChannel;
         let userInput = Array(
             "The cake is a lie",
@@ -12,65 +14,87 @@ export class Soundboard {
             "Yay",
             "Stop it",
             "Do it!",
-            "Do it"
+            "Do it",
+            "gg ez",
+            "are you gay?",
+            "Was ist euer Handwerk?"
         );
         let response = Array(
             "https://www.youtube.com/watch?v=Y6ljFaKRTrI",
             "https://www.youtube.com/watch?v=3fVUU7Drv2I",
             "https://www.youtube.com/watch?v=Di2wDDwxqHg",
             "https://www.youtube.com/watch?v=pd53lRZfnV0",
-            "https://www.youtube.com/watch?v=eZeYVIWz99I",
+            "https://www.youtube.com/watch?v=0lYpD9rfPmc",
             "https://www.youtube.com/watch?v=reop2bXiNgk",
-            "https://www.youtube.com/watch?v=ZXsQAXx_ao0"
+            "https://www.youtube.com/watch?v=ZXsQAXx_ao0",
+            "fucking cunt, gg iz, go kill yourself biatch.",
+            "i think you like to suck cocks.",
+            "https://www.youtube.com/watch?v=rym5hSkZks8"
         );
 
         for (let a = 0; userInput.length > a;) {
             userInput[a].toLowerCase();
-            if (msg.content.startsWith(msg.mentions.members.first())) {
+            if (msg.content.startsWith(msg.mentions.members.first()) || msg.content.startsWith("")) {
                 if (msg.content === userInput[a].toLowerCase() || msg.content === userInput[a].toUpperCase() || msg.content === userInput[a] ||
                     msg.content === msg.mentions.members.first() + " " + userInput[a].toLowerCase() || msg.content === msg.mentions.members.first() + " " + userInput[a].toUpperCase() ||
                     msg.content === msg.mentions.members.first() + " " + userInput[a]) {
                     switch (userInput[a]) {
                         case userInput[0]:
                         {
-                            console.log("Playing command song: The cake is a lie");
-                            play(msg, response[0]);
+                            checkQueue(msg, response[0]);
                             break;
                         }
                         case userInput[1]:
                         {
-                            console.log("You need more companion cubes");
-                            play(msg, response[1]);
+                            checkQueue(msg, response[1]);
                             break;
                         }
                         case userInput[2]:
                         {
-                            console.log("Bot no good");
-                            play(msg, response[2]);
+                            checkQueue(msg, response[2]);
                             break;
                         }
                         case userInput[3]:
                         {
-                            console.log("Nay");
-                            play(msg, response[3]);
+                            checkQueue(msg, response[3]);
                             break;
                         }
                         case userInput[4]:
                         {
-                            console.log("Yay");
-                            play(msg, response[4]);
+                            checkQueue(msg, response[4]);
                             break;
                         }
                         case userInput[5]:
                         {
-                            console.log("Stop it");
-                            play(msg, response[5]);
+                            checkQueue(msg, response[5]);
                             break;
                         }
                         case userInput[6] || userInput[7]:
                         {
-                            console.log("Do it");
-                            play(msg, response[6]);
+                            checkQueue(msg, response[6]);
+                            break;
+                        }
+                        case userInput[8]:
+                        {
+                            msg.channel.send(response[7], {
+                                tts: true
+                            });
+                            //checkQueue(msg, response[7]);
+                            break;
+                        }
+                        case userInput[9]:
+                        {
+                            msg.channel.send(response[8], {
+                                tts: true
+                            });
+                            //checkQueue(msg, response[7]);
+                            break;
+                        }
+                        case userInput[10]:
+                        {
+                            checkQueue(msg, response[9]);
+                            msg.reply("AHU AHU AHUUUUU!");
+                            //checkQueue(msg, response[7]);
                             break;
                         }
                         default:
@@ -83,36 +107,70 @@ export class Soundboard {
             a++;
         };
 
-        function play(msg, song) {
-            let isInQueue;
-            ytdl.getInfo(song, function(err, info) {
-                isInQueue = info.title
-                return isInQueue;
-            });
+        function checkQueue(msg, song) {
             if (!voiceChannel) {
                 return msg.channel.send(":x: You must be in a voice channel first!");
             }
 
             else {
-                voiceChannel.join()
-                    .then(connection => {
-                        let stream = ytdl(song, {
-                            audioonly: true
-                        });
-                            let dispatcher = "";
-                            if(!connection.dispatcher){// Check if its already playing in voicechannel, if not, play the clip
-                                let dispatcher = connection.playStream(stream);
-                                ytdl.getInfo(song, function (err, info) {
-                                    const title = info.title
-                                    console.log(`${msg.author.username}, Queued the song '${title}.'`)
-                                    msg.channel.send(`Now playing \`${title}\``)
-                                });
-                                dispatcher.on('end', () => {
-                                    voiceChannel.leave();
-                                });
-                            }
-                            else {voiceChannel.leave();} // If song is already return queue
-                    });
+                if (!ytAudioQueue.length) {
+                    ytAudioQueue.push(song);
+                    voiceChannel.join();
+                    play(msg, song)
+                }
+                else {
+                    QueueNewAudio(msg, song)
+                }
             }
         }
+        function QueueNewAudio(msg, song) {
+            if (ytAudioQueue.length == 0) {
+                ytAudioQueue.push(song);
+                console.log("new audio " + song);
+                play(msg, song);
+            }
+            else {
+                ytAudioQueue.push(song);
+                console.log("Queued audio " + song);
+            }
+
+        }
+        function play(msg, song) {
+            const streamOptions = {seek: 0, volume: 1};
+            if (song) {
+                const stream = ytdl(song, {filter: 'audioonly'});
+                if (dispatcher == null) {
+                    console.log("Dispatcher is NULL");
+                    let voiceConnection = client.voiceConnections.first();
+                    //console.log(voiceConnection);
+
+                    if (voiceConnection) {
+
+                        let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+                        dispatcher.on('end', () => {
+                            PlayNextStreamInQueue(msg, ytAudioQueue);
+                        });
+                        dispatcher.on('error', (err) => {
+                            console.log(err);
+                        });
+                    }
+                }
+                else {
+                    let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+                }
+            }
+        }
+        function PlayNextStreamInQueue(msg, ytAudioQueue) {
+            ytAudioQueue.shift();
+            // if there are streams remaining in the queue then try to play
+            if (ytAudioQueue.length != 0) {
+                play(msg, ytAudioQueue[0]);
+            }
+            else {
+                voiceChannel.leave();
+                //playSong.play(CONFIG.prefix + "play", CONFIG, ytdl, ytSongQueue, client, dispatcher, userRole)
+            }
+        }
+
     }
+}

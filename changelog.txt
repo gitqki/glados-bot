@@ -1,3 +1,22 @@
+Changelog Version 0.4
+---------------------
+fixes:
+- fixed some issues with audio playback
+- fixed some minor issues
+
+changes:
+- many minor changes
+- changed some classes
+- changed soundboard
+
+new:
+- added new soundboard phrases
+- added new soundboard tts playbacks
+- added music queue
+- added resume, stop, add, skip
+- added index file for deleting glados messages and member messages, for deeper view see _commands
+- added some important roles (see roles.class.ts)
+
 Changelog Version 0.3
 ---------------------
 fixes:
@@ -32,7 +51,7 @@ changes:
 
 new:
 - Outsourced all neccessary stuff for better structure
-- gladosBot.ts just act like a handler, who calls all the features
+- gladosBot.class.ts just act like a handler, who calls all the features
 - created some classes for different stuff like no prefix commands, with prefix commands and stuff.
 - bot can't call own commands anymore
 
