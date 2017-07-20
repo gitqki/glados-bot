@@ -13,7 +13,7 @@ export class Play {
         if (msg.content.startsWith(CONFIG.prefix + "play")) {ytSeach(msg, args);}
         else if (msg.content.startsWith(CONFIG.prefix + "resume")) {voiceChannel.leave();resumeSong(msg, ytSongQueue[0]);}
         else if (msg.content.startsWith(CONFIG.prefix + "add")) {ytSeach(msg, args);}
-        else if (msg.content.startsWith(CONFIG.prefix + "skip")) {PlayNextStreamInQueue(msg, ytSongQueue, "skip", userRole)}
+        else if (msg.content.startsWith(CONFIG.prefix + "skip")) {PlayNextStreamInQueue(msg, ytSongQueue, "skip")}
         function checkQueue(msg, song) {
             if (!voiceChannel) {
                 return msg.channel.send(":x: You must be in a voice channel first!");
@@ -62,24 +62,27 @@ export class Play {
             if (song) {
                 if (song.startsWith("https")) {
                     if (dispatcher == null) {
+                        console.log("Dispatcher is NULL");
                         let voiceConnection = client.voiceConnections.first();
                         //console.log(voiceConnection);
+
                         if (voiceConnection) {
-                            dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
-                            msg.reply("Now Playing " + ytSongQueue[0]);
+
+                            let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
                             dispatcher.on('end', () => {
-                                PlayNextStreamInQueue(msg, ytSongQueue, "play", userRole);
+                                PlayNextStreamInQueue(msg, ytSongQueue, "play");
                             });
                             dispatcher.on('error', (err) => {
                                 console.log(err);
                             });
-
-
                         }
+                    }
+                    else if (dispatcher != null) {
+                        let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
                     }
                 }
                 else {
-                    ytSeach(msg, song);
+                    ytSeach(msg, args);
                 }
             }
         }
@@ -95,34 +98,22 @@ export class Play {
                 checkQueue(msg, results[0].link);
             })
         };
-        function PlayNextStreamInQueue(msg, ytSongQueue, opt, userRole) {
-            if (opt == "skip" && userRole.Admin == true || opt == "skip" && userRole.Moderator == true){
-                console.log("Roles: " + userRole.Admin + ", " + userRole.Moderator + ", " + userRole.User)
-                msg.reply("Song skipped.")
-                // if there are streams remaining in the queue then try to play
-                if (ytSongQueue[1]) {
-                    ytSongQueue.shift();
-                    console.log(ytSongQueue);
-                    //msg.reply("Now Playing " + ytSongQueue);
-                    play(msg, ytSongQueue[0]);
-                }
-                else {
-                    msg.reply("You cant skip more, because its just 1 left.");
-                }
+        function playNext(msg, song) {
+            let dispatcher = client.voiceConnections.first().playStream(song, streamOptions);
+        }
+        function PlayNextStreamInQueue(msg, ytSongQueue, opt) {
+            // if there are streams remaining in the queue then try to play
+            if (ytSongQueue.length != 0 && opt == "play") {
+                playNext(msg, ytSongQueue[0]);
             }
-            else if (opt == "skip" && userRole.Admin == false || opt == "skip" && userRole.Moderator == false || opt == "skip" && userRole.User == true){
-                msg.reply("Sorry, your are not allowed to skip songs.")
+            else if(opt == "skip") {
+                ytSongQueue.shift();
+                console.log(ytSongQueue[0]);
+                play(msg, ytSongQueue[0]);
             }
-            else if (opt == "play") {
-                // if there are streams remaining in the queue then try to play
-                if (ytSongQueue.length != 0) {
-                    //console.log("Now Playing " + ytAudioQueue);
-                    play(msg, ytSongQueue[0]);
-                }
-                else {
-                    msg.channel.send("No more songs in Queue, see ya.");
-                    voiceChannel.leave();
-                }
+            else {
+                voiceChannel.leave();
+                //playSong.play(CONFIG.prefix + "play", CONFIG, ytdl, ytSongQueue, client, dispatcher, userRole)
             }
         }
     }

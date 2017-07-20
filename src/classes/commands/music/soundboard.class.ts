@@ -76,25 +76,18 @@ export class Soundboard {
                         }
                         case userInput[8]:
                         {
-                            msg.channel.send(response[7], {
-                                tts: true
-                            });
-                            //checkQueue(msg, response[7]);
+                            checkQueue(msg, response[7]);
                             break;
                         }
                         case userInput[9]:
                         {
-                            msg.channel.send(response[8], {
-                                tts: true
-                            });
-                            //checkQueue(msg, response[7]);
+                            checkQueue(msg, response[8]);
                             break;
                         }
                         case userInput[10]:
                         {
-                            checkQueue(msg, response[9]);
                             msg.reply("AHU AHU AHUUUUU!");
-                            //checkQueue(msg, response[7]);
+                            checkQueue(msg, response[9]);
                             break;
                         }
                         default:
@@ -136,27 +129,42 @@ export class Soundboard {
 
         }
         function play(msg, song) {
+
             const streamOptions = {seek: 0, volume: 1};
-            if (song) {
-                const stream = ytdl(song, {filter: 'audioonly'});
-                if (dispatcher == null) {
-                    console.log("Dispatcher is NULL");
-                    let voiceConnection = client.voiceConnections.first();
-                    //console.log(voiceConnection);
+            if (song.startsWith("http://voice.share.laur.me:8888/")){
+                console.log(song);
+                voiceChannel.join();
+                let dispatcher = client.voiceConnections.first().playStream(song);
+                dispatcher.on('end', () => {
+                    PlayNextStreamInQueue(msg, ytAudioQueue);
+                });
+                dispatcher.on('error', (err) => {
+                    console.log(err);
+                });
 
-                    if (voiceConnection) {
+            }
+            else {
+                if (song) {
+                    const stream = ytdl(song, {filter: 'audioonly'});
+                    if (dispatcher == null) {
+                        console.log("Dispatcher is NULL");
+                        let voiceConnection = client.voiceConnections.first();
+                        //console.log(voiceConnection);
 
-                        let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
-                        dispatcher.on('end', () => {
-                            PlayNextStreamInQueue(msg, ytAudioQueue);
-                        });
-                        dispatcher.on('error', (err) => {
-                            console.log(err);
-                        });
+                        if (voiceConnection) {
+
+                            let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+                            dispatcher.on('end', () => {
+                                PlayNextStreamInQueue(msg, ytAudioQueue);
+                            });
+                            dispatcher.on('error', (err) => {
+                                console.log(err);
+                            });
+                        }
                     }
-                }
-                else {
-                    let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+                    else {
+                        let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+                    }
                 }
             }
         }
