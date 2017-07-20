@@ -27,8 +27,8 @@ export class Soundboard {
             "https://www.youtube.com/watch?v=0lYpD9rfPmc",
             "https://www.youtube.com/watch?v=reop2bXiNgk",
             "https://www.youtube.com/watch?v=ZXsQAXx_ao0",
-            "fucking cunt, gg iz, go kill yourself biatch.",
-            "i think you like to suck cocks.",
+            "http://voice.share.laur.me:8888/tts.php?lng=en-US&msg=fucking%20cunt%20g%20g%20e%20z%20go%20kill%20yourself",
+            "http://voice.share.laur.me:8888/tts.php?lng=en-US&msg=i%20think%20you%20like%20to%20suck%20cocks%20kappa%20pride",
             "https://www.youtube.com/watch?v=rym5hSkZks8"
         );
 
