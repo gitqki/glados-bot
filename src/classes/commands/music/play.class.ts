@@ -115,7 +115,7 @@ export class Play {
             }
             else if (opt == "play") {
                 // if there are streams remaining in the queue then try to play
-                if (ytSongQueue[0] == "") {
+                if (ytSongQueue[0] != "") {
                     //console.log("Now Playing " + ytAudioQueue);
                     play(msg, ytSongQueue[0]);
                 }
