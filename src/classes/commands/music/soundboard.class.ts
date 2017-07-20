@@ -151,7 +151,7 @@ export class Soundboard {
 
                         if (voiceConnection) {
 
-                            let dispatcher = client.voiceConnection.playFile(stream, streamOptions);
+                            let dispatcher = client.voiceConnection.playStream(stream, streamOptions);
                             dispatcher.on('end', () => {
                                 PlayNextStreamInQueue(msg, ytAudioQueue);
                             });
