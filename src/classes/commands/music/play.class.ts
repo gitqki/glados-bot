@@ -102,7 +102,7 @@ export class Play {
                 msg.channel.send(":x: Song skipped");
                 dispatcher = client.voiceConnections.first().playStream(ytSongQueue[0], streamOptions);
             } else {
-                msg.reply(":no_entry_sign: Not enough songs in queue...");
+                msg.channel.send(":no_entry_sign: Not enough songs in queue...");
             }
         }
         function PlayNextStreamInQueue(msg, ytSongQueue, opt) {
@@ -112,7 +112,7 @@ export class Play {
                 if (ytSongQueue.length != 0) {
                     play(msg, ytSongQueue[0]);
                 } else {
-                    msg.reply(":no_entry_sign: Not enough songs in queue...");
+                    msg.channel.send(":no_entry_sign: Not enough songs in queue...");
                     voiceChannel.leave();
                 }
             }
