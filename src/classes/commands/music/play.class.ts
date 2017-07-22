@@ -87,7 +87,7 @@ export class Play {
         }
         function ytSeach(msg, song){
             let opts = {
-                key: "AIzaSyBBQDdns6QfMC4whiey8JRnAE9odkfNP1U",
+                key: "",
             }
             let name = song;
             console.log(name);

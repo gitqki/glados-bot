@@ -21,11 +21,10 @@ export class Random {
             2: " cologne level.",
             3: " is not gay"
         };
-
-        if (msg.content === msg.mentions.members.first() + ' waifu?') {
+        if (msg.content === msg.mentions.members.first() + ' ' + cases[0]) {
             msg.channel.send(msg.mentions.members.first() + " is " + response.waifu + "/10 waifu!");
         }
-        if (msg.content === msg.mentions.members.first() + ' gay?') {
+        if (msg.content === msg.mentions.members.first() + ' ' + cases[1]) {
             msg.channel.send(msg.mentions.members.first() +  gay[response.gay]);
         }
     }
