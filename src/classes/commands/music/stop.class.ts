@@ -9,6 +9,7 @@ export class Stop {
             if (!voiceChannel){ // if user is not in voicechannel, don't play
                 return msg.channel.send(":x: You must be in a voice channel first!");
             }
+            msg.channel.send(":x: Bot left the channel.")
             voiceChannel.leave();
             ytAudioQueue.length = 0;
             ytSongQueue.length = 0;

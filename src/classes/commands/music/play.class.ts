@@ -1,4 +1,6 @@
 import search = require("youtube-search");
+import {Helper} from "../../helper/helper.class";
+let helper = new Helper();
 
 export class Play {
     constructor() {
@@ -13,7 +15,7 @@ export class Play {
         if (msg.content.startsWith(CONFIG.prefix + "play")) {ytSeach(msg, args);}
         else if (msg.content.startsWith(CONFIG.prefix + "resume")) {voiceChannel.leave();resumeSong(msg, ytSongQueue[0]);}
         else if (msg.content.startsWith(CONFIG.prefix + "add")) {ytSeach(msg, args);}
-        else if (msg.content.startsWith(CONFIG.prefix + "skip")) {PlayNextStreamInQueue(msg, ytSongQueue, "skip")}
+        else if (msg.content.startsWith(CONFIG.prefix + "skip")) {playNext(msg, ytSongQueue);}
         function checkQueue(msg, song) {
             if (!voiceChannel) {
                 return msg.channel.send(":x: You must be in a voice channel first!");
@@ -41,7 +43,7 @@ export class Play {
             else {
                 ytSongQueue.push(song);
                 console.log(ytSongQueue)
-                msg.reply("Added to Queue: " + song);
+                helper.songInfo(song, msg, "queue");
             }
 
         }
@@ -49,9 +51,9 @@ export class Play {
             voiceChannel.join();
             const stream = ytdl(song, {filter: 'audioonly'});
             dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
-            msg.reply("Now Playing " + ytSongQueue[0]);
+            helper.songInfo(song, msg, "now_playing");
             dispatcher.on('end', () => {
-                PlayNextStreamInQueue(msg, ytSongQueue, "play", userRole);
+                PlayNextStreamInQueue(msg, ytSongQueue, "play");
             });
             dispatcher.on('error', (err) => {
                 console.log(err);
@@ -65,20 +67,17 @@ export class Play {
                         console.log("Dispatcher is NULL");
                         let voiceConnection = client.voiceConnections.first();
                         //console.log(voiceConnection);
-
                         if (voiceConnection) {
-
                             let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+                            helper.songInfo(song, msg, "now_playing");
                             dispatcher.on('end', () => {
-                                PlayNextStreamInQueue(msg, ytSongQueue, "play");
+                                console.log("play next...");
+                                PlayNextStreamInQueue(msg, ytSongQueue, "play")
                             });
                             dispatcher.on('error', (err) => {
                                 console.log(err);
                             });
                         }
-                    }
-                    else if (dispatcher != null) {
-                        let dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
                     }
                 }
                 else {
@@ -98,22 +97,24 @@ export class Play {
                 checkQueue(msg, results[0].link);
             })
         };
-        function playNext(msg, song) {
-            let dispatcher = client.voiceConnections.first().playStream(song, streamOptions);
+        function playNext(msg, ytSongQueue) {
+            if (ytSongQueue.length > 1) {
+                msg.channel.send(":x: Song skipped");
+                dispatcher = client.voiceConnections.first().playStream(ytSongQueue[0], streamOptions);
+            } else {
+                msg.reply(":no_entry_sign: Not enough songs in queue...");
+            }
         }
         function PlayNextStreamInQueue(msg, ytSongQueue, opt) {
-            // if there are streams remaining in the queue then try to play
-            if (ytSongQueue.length != 0 && opt == "play") {
-                playNext(msg, ytSongQueue[0]);
-            }
-            else if(opt == "skip") {
+            if (opt == "play") {
                 ytSongQueue.shift();
-                console.log(ytSongQueue[0]);
-                play(msg, ytSongQueue[0]);
-            }
-            else {
-                voiceChannel.leave();
-                //playSong.play(CONFIG.prefix + "play", CONFIG, ytdl, ytSongQueue, client, dispatcher, userRole)
+                console.log(ytSongQueue);
+                if (ytSongQueue.length != 0) {
+                    play(msg, ytSongQueue[0]);
+                } else {
+                    msg.reply(":no_entry_sign: Not enough songs in queue...");
+                    voiceChannel.leave();
+                }
             }
         }
     }
