@@ -1,0 +1,61 @@
+Changelog Version 0.4
+---------------------
+fixes:
+- fixed some issues with audio playback
+- fixed some minor issues
+
+changes:
+- many minor changes
+- changed some classes
+- changed soundboard
+
+new:
+- added new soundboard phrases
+- added new soundboard tts playbacks
+- added music queue
+- added resume, stop, add, skip
+- added index file for deleting glados messages and member messages, for deeper view see _commands
+- added some important roles (see roles.class.ts)
+
+Changelog Version 0.3
+---------------------
+fixes:
+- fixed an issue, when bot was leaving the channel, before playing a song
+
+changes:
+- many minor changes
+- created many subfolders for better structure
+- wrote installation guide for the music-bot
+
+new:
+- added music bot, now you can play youtube songs, just by enter the url (read _commands)
+- added soundboard, now, when special sentences are spoken to someone, the bot plays different sounds
+- added some helpers like "youtube-searc, ytdl-core"
+# deeper view for this:
+- added search.class
+- added play.class
+- added doing.class
+- added soundboard.class
+
+
+Changelog Version 0.2
+---------------------
+
+fixes:
+- fixed an issue when config.json wasnt loaded correctly (import * as CONFIG from "src")
+- fixed and issue when classes weren't loaded correctly (removed .ts)
+
+changes:
+- config.json is now at "root/src/config"
+
+
+new:
+- Outsourced all neccessary stuff for better structure
+- gladosBot.class.ts just act like a handler, who calls all the features
+- created some classes for different stuff like no prefix commands, with prefix commands and stuff.
+- bot can't call own commands anymore
+
+still in development:
+- implemented a feature, which allows to post play comments (everything after .play ?play..) in other channels, to implement songname lists
+we need a filter, which search for existing songnames in the channel. (channel atm: test)
+

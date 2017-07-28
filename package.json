@@ -1,10 +1,11 @@
 {
-  "name": "qkicream-bot",
+  "files": "/var/www/gladosBot/",
+  "name": "Glados-Bot",
   "version": "1.0.0",
   "description": "It's just a bot. The only bot you will ever need.",
-  "main": "qkicream-bot.js",
+  "main": "gladosBot.ts",
   "scripts": {
-    "start": "node qkicream-bot.js"
+    "start": "node ./src/gladosBot.ts"
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +14,6 @@
     "node-opus": "^0.2.6",
     "youtube-search": "^1.0.10",
     "ytdl-core": "^0.15.0"
+    "typescript": "next"
   }
 }

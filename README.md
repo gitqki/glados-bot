@@ -1,8 +1,7 @@
 # glados-bot
 It's just a bot.  The only bot you will ever need.
 
-
-# Documentation of the Framework
+# Framework Documentation
 https://discord.js.org/#/
 
 
@@ -20,12 +19,30 @@ Replace the [YourClientID] with your client ID. You can find it under your app-d
 8. Clone this git. You will need:
 * Python 2.X
 * node.js
-9. You see: 
-* directory: classes
-* files: config.json, error-log.txt, log-file.txt, qkicream-bot.js
-10. To edit just open qkicream-bot.js and/or classes, like helper.class.js or bootstrap.class.js
-11. To run it, open windows or linux console in qkicream-bot folder
-12. npm install --save discord.js (This will create a node_folder in your libary)
-13. Type: node qkicream-bot.js >log-file.txt 2>error-log.txt
 
-That's it. You are done.
+# run with Docker
+9. First download Docker Toolbox and install
+10. Open the Docker Quickstart Terminal
+11. Wait until it finish initializing
+12. In the Docker Terminal move to the Project root path
+13. Build the Docker Container with "docker build ."
+14. Now run the Deploy Script with "./deploy.sh"
+
+# run without Docker 
+9. To run it, open windows or linux console in glados-bot folder
+10. npm install typescript --save discord.js (This will create a node_folder in your libary)
+11. Type: npm run start
+
+# installation for music bot
+12. npm install windows-build-tools (in src dir)
+13. npm install discord.js node-opus (in src dir)
+14. download https://ffmpeg.org/download.html
+15. You need to download/extract FFMPEG and make it as your PATH/System variable[environment variable]
+16. [https://i.stack.imgur.com/hAVzo.png] (for windows)
+17. npm install discord.js ytdl-core (in src dir), npm install discord.js youtube-search
+18. Restart system
+19. Now it should work.
+
+Now you have started the bot. Changes can be made in the glados-bot/src/ folder.
+Just redeploy the bot if changes are made. To redeploy just run the deploy.sh script 
+or type npm run with the terminal in the root path of the project.
